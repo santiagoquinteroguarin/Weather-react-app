@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import Header from './components/Header';
 import Form from './components/Form';
 import Weather from './components/Weather';
+import Error from './components/Error';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
   // ?4. 
   const [query, setSavedQuery] = useState(false);
   const [data, setSavedData] = useState({});
+  const [error, setSavedError] = useState(false);
 
   // ?2. extract
   const { city, country } = search;
@@ -36,10 +38,25 @@ function App() {
         setSavedData(data);
         // ?7. para volver a consultar
         setSavedQuery(false);
+
+        // ?8. detecta si hubo resultados correctos en la consulta
+        if(data.cod === "404") {
+          setSavedError(true);
+        } else {
+          setSavedError(false);
+        }
       }
     }
     queryAPI();
   }, [query])
+
+  // ?9.
+  let component;
+  if(error) {
+    component = <Error message="No hay resultados :("/>
+  } else {
+    component = <Weather data={data}/>
+  }
 
   return (
     <Fragment>
@@ -58,9 +75,7 @@ function App() {
               />
             </div>
             <div className="col m6 s12">
-              <Weather
-                data={data}
-              />
+              {component}
             </div>
           </div>
         </div>
