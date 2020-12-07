@@ -1,12 +1,6 @@
 import React, {useState} from 'react';
 
-const Form = () => {
-
-    // ?1. state of form
-    const [search, setSavedSearch] = useState({
-        city: '',
-        country: '',
-    });
+const Form = ({search, setSavedSearch, setSavedQuery}) => {
 
     // ?5.
     const [error, setSavedError] = useState(false);
@@ -36,6 +30,7 @@ const Form = () => {
         setSavedError(false);
 
         // ?6. send to main component
+        setSavedQuery(true);
     }
 
     return (
