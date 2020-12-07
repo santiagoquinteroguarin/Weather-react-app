@@ -48,6 +48,8 @@ function App() {
       }
     }
     queryAPI();
+    // ! quitar ultimo warning
+    // eslint-disable-next-line
   }, [query])
 
   // ?9.
